@@ -9,15 +9,69 @@ var SHEET_NAME = 'Daily Feed';
 // ─────────────────────────────────────────────────────────────
 
 var KEYWORDS = [
+  // ── Vibe coding tools ──
   'vibe coding',
+  'vibe code',
   'cursor help',
+  'cursor AI',
   'lovable help',
+  'lovable.dev',
   'bolt.new',
+  'replit help',
+  'v0 help',
+  'windsurf',
+  'github copilot',
+  'claude code',
+  'AI coding',
+  'AI builder',
+  'AI app builder',
+
+  // ── Struggle & stuck ──
+  'not working',
+  'broken code',
+  'AI gave me',
+  'AI generated',
+  'hallucinating',
+  'debugging AI',
+  'deploy failed',
+  'stuck on',
+  'how do I fix',
+  'anyone help',
+  'totally lost',
+  'beginner help',
+  'zero coding experience',
+  'no coding background',
+  'non technical founder',
+  'taught myself',
+  'self taught',
+  'learning to code',
+  'learning to build',
+
+  // ── Project management ──
   'project management solo',
   'too many projects',
+  'too many apps',
+  'notion alternative',
+  'task management',
+  'organize projects',
+  'managing projects alone',
+  'solo founder tools',
+  'solopreneur tools',
+  'freelance project management',
+  'client project tracking',
+
+  // ── Building & shipping ──
   'built with AI',
   'no code help',
-  'notion alternative',
+  'built my first app',
+  'shipped my app',
+  'building in public',
+  'side project help',
+  'launched my app',
+  'first SaaS',
+  'indie hacker',
+  'solopreneur',
+  'solo founder',
 ];
 
 var SUBREDDITS = [
