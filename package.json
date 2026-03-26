@@ -1,5 +1,5 @@
 {
-  "name": "yoda-coach",
+  "name": "kodo-coach",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.39.0",
-    "@supabase/supabase-js": "^2.45.0",
     "next": "^14.2.0",
     "react": "^18.3.0",
     "react-dom": "^18.3.0"
