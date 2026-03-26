@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState, useCallback } from 'react';
+import Link from 'next/link';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -89,6 +90,7 @@ export default function Home() {
       <header className="app-header">
         <div className="app-title">◉ YODA</div>
         <div className="app-subtitle">ACCOUNTABILITY COACH — YODA</div>
+        <Link href="/leads" className="leads-nav-link">⊕ HELP SEEKERS FEED</Link>
       </header>
 
       <div className="messages">
