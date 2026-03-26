@@ -1,13 +1,11 @@
 // ============================================================
 // DAILY DOOR-KNOCK FEED
-// Fetches posts from Reddit, HN, Dev.to, and X (via Google)
-// Writes results to Google Sheet
+// Fetches posts from Reddit, HN, and Dev.to
+// Writes results to Google Sheet — no API key needed
 // ============================================================
 
-// ── STEP 1: EDIT THESE BEFORE RUNNING ────────────────────────
-var GOOGLE_API_KEY = 'YOUR_GOOGLE_API_KEY';   // From Google Cloud Console
-var GOOGLE_CX     = 'YOUR_SEARCH_ENGINE_ID';  // From Programmable Search Engine
-var SHEET_NAME    = 'Daily Feed';
+// ── STEP 1: EDIT THIS BEFORE RUNNING ─────────────────────────
+var SHEET_NAME = 'Daily Feed';
 // ─────────────────────────────────────────────────────────────
 
 var KEYWORDS = [
@@ -42,16 +40,6 @@ var HN_QUERIES = [
 
 var DEVTO_TAGS = ['vibecoding', 'nocode', 'buildinpublic', 'solopreneur'];
 
-var X_QUERIES = [
-  '"vibe coding"',
-  '"cursor help"',
-  '"lovable help"',
-  '"bolt.new"',
-  '"too many apps"',
-  '"notion alternative"',
-  '"building in public"',
-];
-
 // ── MAIN — this runs daily ────────────────────────────────────
 function fetchDailyFeed() {
   var ss    = SpreadsheetApp.getActiveSpreadsheet();
@@ -71,12 +59,6 @@ function fetchDailyFeed() {
   results = results.concat(fetchReddit(today));
   results = results.concat(fetchHN(today));
   results = results.concat(fetchDevTo(today));
-
-  if (GOOGLE_API_KEY !== 'YOUR_GOOGLE_API_KEY') {
-    results = results.concat(fetchX(today));
-  } else {
-    Logger.log('X skipped — add your GOOGLE_API_KEY and GOOGLE_CX to enable it.');
-  }
 
   if (results.length > 0) {
     var lastRow = sheet.getLastRow();
@@ -199,42 +181,4 @@ function fetchDevTo(today) {
   return results;
 }
 
-// ── X VIA GOOGLE CUSTOM SEARCH ────────────────────────────────
-function fetchX(today) {
-  var results = [];
-
-  X_QUERIES.forEach(function(query) {
-    try {
-      var url = 'https://www.googleapis.com/customsearch/v1' +
-        '?key=' + GOOGLE_API_KEY +
-        '&cx=' + GOOGLE_CX +
-        '&q=site:x.com ' + encodeURIComponent(query) +
-        '&dateRestrict=d1&num=5';
-
-      var response = UrlFetchApp.fetch(url, { muteHttpExceptions: true });
-      if (response.getResponseCode() !== 200) return;
-
-      var items = JSON.parse(response.getContentText()).items;
-      if (!items) return;
-
-      items.forEach(function(item) {
-        results.push([
-          today,
-          'X (Twitter)',
-          query,
-          item.title,
-          item.link,
-          '',
-          0,
-        ]);
-      });
-
-      Utilities.sleep(500);
-    } catch (e) {
-      Logger.log('X error: ' + e.message);
-    }
-  });
-
-  return results;
-}
 
