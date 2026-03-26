@@ -378,34 +378,6 @@ html, body {
   cursor: not-allowed;
 }
 
-.voice-btn, .stop-btn, .send-btn {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  color: var(--green);
-  font-size: 1rem;
-  width: 38px;
-  height: 38px;
-  border-radius: 3px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.15s ease;
-  outline: none;
-  flex-shrink: 0;
-}
-
-.voice-btn:hover, .stop-btn:hover {
-  background: var(--green-dark);
-  border-color: var(--green);
-}
-
-.voice-btn.active {
-  background: var(--green-dark);
-  border-color: var(--green);
-  animation: blink 1s ease infinite;
-}
-
 .send-btn {
   background: var(--green-dark);
   font-family: var(--font-mono);

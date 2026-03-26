@@ -11,10 +11,7 @@ export default function ChatInterface({ sessionId }: ChatInterfaceProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
-  const [listening, setListening] = useState(false);
-  const [speaking, setSpeaking] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
-  const recognitionRef = useRef<{ stop: () => void } | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
@@ -25,18 +22,6 @@ export default function ChatInterface({ sessionId }: ChatInterfaceProps) {
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
-
-  const speak = useCallback((text: string) => {
-    if (typeof window === 'undefined') return;
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.rate = 0.95;
-    utterance.pitch = 0.85;
-    utterance.onstart = () => setSpeaking(true);
-    utterance.onend = () => setSpeaking(false);
-    utterance.onerror = () => setSpeaking(false);
-    window.speechSynthesis.speak(utterance);
-  }, []);
 
   const sendMessage = useCallback(async (text: string) => {
     if (!text.trim() || loading) return;
@@ -67,7 +52,6 @@ export default function ChatInterface({ sessionId }: ChatInterfaceProps) {
 
       setMessages((prev) => [...prev, assistantMsg]);
       await saveMessage(assistantMsg);
-      speak(data.reply);
     } catch (err) {
       console.error(err);
       const errMsg: Message = {
@@ -79,54 +63,13 @@ export default function ChatInterface({ sessionId }: ChatInterfaceProps) {
     } finally {
       setLoading(false);
     }
-  }, [loading, messages, sessionId, speak]);
+  }, [loading, messages, sessionId]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       sendMessage(input);
     }
-  };
-
-  const startListening = () => {
-    if (typeof window === 'undefined') return;
-    const SpeechRecognition =
-      (window as unknown as { SpeechRecognition?: typeof window.SpeechRecognition; webkitSpeechRecognition?: typeof window.SpeechRecognition }).SpeechRecognition ||
-      (window as unknown as { SpeechRecognition?: typeof window.SpeechRecognition; webkitSpeechRecognition?: typeof window.SpeechRecognition }).webkitSpeechRecognition;
-
-    if (!SpeechRecognition) {
-      alert('Speech recognition not supported in this browser.');
-      return;
-    }
-
-    if (listening) {
-      recognitionRef.current?.stop();
-      setListening(false);
-      return;
-    }
-
-    const recognition = new SpeechRecognition();
-    recognition.lang = 'en-US';
-    recognition.interimResults = false;
-    recognition.maxAlternatives = 1;
-
-    recognition.onresult = (event: SpeechRecognitionEvent) => {
-      const transcript = event.results[0][0].transcript;
-      setInput(transcript);
-      setListening(false);
-    };
-
-    recognition.onerror = () => setListening(false);
-    recognition.onend = () => setListening(false);
-
-    recognitionRef.current = recognition;
-    recognition.start();
-    setListening(true);
-  };
-
-  const stopSpeaking = () => {
-    window.speechSynthesis.cancel();
-    setSpeaking(false);
   };
 
   return (
@@ -157,26 +100,6 @@ export default function ChatInterface({ sessionId }: ChatInterfaceProps) {
 
       <div className="input-area">
         <div className="input-row">
-          <button
-            onClick={startListening}
-            className={`voice-btn ${listening ? 'active' : ''}`}
-            aria-label={listening ? 'Stop listening' : 'Start voice input'}
-            title={listening ? 'Stop listening' : 'Speak'}
-          >
-            {listening ? '⏹' : '🎙'}
-          </button>
-
-          {speaking && (
-            <button
-              onClick={stopSpeaking}
-              className="stop-btn"
-              aria-label="Stop speaking"
-              title="Stop Yoda"
-            >
-              🔇
-            </button>
-          )}
-
           <textarea
             ref={textareaRef}
             value={input}
