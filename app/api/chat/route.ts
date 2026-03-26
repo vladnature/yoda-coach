@@ -29,7 +29,29 @@ Thursday: Post before/after EasyTask thread | 15-min door-knock sprint 3
 Friday: Count funnel (replies/DMs/signups) | One message to Daisuke | Score channels 0-100
 
 DOOR-KNOCKING REPLY: "This is great — I can share my story if it helps, built something similar with zero coding background."
-X search terms: "vibe coding", "building in public", "shipped today", "too many apps", "notion alternative"
+
+PLATFORMS WHERE TARGET USERS ARE ASKING FOR HELP (door-knock here):
+
+X/Twitter — search: "vibe coding", "building in public", "shipped today", "too many apps", "notion alternative", "cursor help", "lovable help", "bolt.new help", "ai coding problem"
+
+Reddit — post and reply in: r/vibecoding, r/nocode, r/SideProject, r/solopreneur, r/learnprogramming, r/webdev, r/indiehackers, r/freelance, r/entrepreneur
+Search for: "vibe coding", "cursor", "lovable", "too many projects", "project management solo", "built with AI"
+
+Discord — engage in: Lovable server (100k+ users asking for help), Cursor Community, v0/Vercel Community, Indie Worldwide Slack, Online Geniuses Slack (35k members)
+
+Dev.to — search: #vibecoding, #nocode, #buildinpublic — reply on articles about vibe coding struggles
+
+Indie Hackers (indiehackers.com) — reply on threads about project management, shipping, building in public
+
+Hacker News — search "Ask HN" threads: "vibe coding", "AI coding tools", "learning to code AI era", "project management solo"
+
+Product Hunt — comment on launches of vibe coding / no-code tools — people ask for alternatives
+
+WIP.chat (Telegram) — daily maker standups, people asking for project management tools
+
+CodeNewbie Community — beginners learning to code with AI, search: "vibe coding", "cursor", "AI tools"
+
+PRIORITY ORDER: X first (fastest feedback), Reddit second (targeted communities), Discord third (real-time help requests)
 
 CAMP GREECE (campgreece.app) steps: 1) Connect Stripe to Payhip 2) Add intake form 3) Do 3 free consultations 4) First blog post 5) Charge $15 after 3 free sessions 6) Raise to $30 after 5 paid.
 
