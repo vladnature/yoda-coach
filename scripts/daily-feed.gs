@@ -119,7 +119,7 @@ function fetchHN(today) {
     try {
       var url = 'https://hn.algolia.com/api/v1/search?query=' +
         encodeURIComponent(query) +
-        '&tags=(story,ask_hn)&hitsPerPage=5&numericFilters=created_at_i>' + since;
+        '&tags=story,ask_hn&hitsPerPage=5&numericFilters=created_at_i>' + since;
 
       var response = UrlFetchApp.fetch(url, { muteHttpExceptions: true });
       if (response.getResponseCode() !== 200) return;
