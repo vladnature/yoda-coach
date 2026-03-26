@@ -7,7 +7,7 @@ interface Message {
   content: string;
 }
 
-const STORAGE_KEY = 'kodo_messages';
+const STORAGE_KEY = 'yoda_messages';
 const MAX_STORED = 50;
 
 export default function Home() {
@@ -61,7 +61,7 @@ export default function Home() {
       setMessages(withReply);
       persist(withReply);
     } catch {
-      const errMsg: Message = { role: 'assistant', content: 'Error reaching Kodo. Check your API key.' };
+      const errMsg: Message = { role: 'assistant', content: 'Error reaching Yoda. Check your API key.' };
       const withErr = [...updated, errMsg];
       setMessages(withErr);
       persist(withErr);
@@ -87,27 +87,27 @@ export default function Home() {
   return (
     <div className="app">
       <header className="app-header">
-        <div className="app-title">◉ KODO</div>
-        <div className="app-subtitle">ACCOUNTABILITY COACH</div>
+        <div className="app-title">◉ YODA</div>
+        <div className="app-subtitle">ACCOUNTABILITY COACH — YODA</div>
       </header>
 
       <div className="messages">
         {messages.length === 0 && (
           <div className="empty-state">
-            <p>Kodo is ready. What do you need?</p>
+            <p>Yoda is ready. What do you need?</p>
           </div>
         )}
         {messages.map((msg, i) => (
           <div key={i} className={`message ${msg.role}`}>
             <span className="message-prefix">
-              {msg.role === 'user' ? '> YOU' : '◉ KODO'}
+              {msg.role === 'user' ? '> YOU' : '◉ YODA'}
             </span>
             <p className="message-content">{msg.content}</p>
           </div>
         ))}
         {loading && (
           <div className="message assistant">
-            <span className="message-prefix">◉ KODO</span>
+            <span className="message-prefix">◉ YODA</span>
             <p className="message-content blinking">▋</p>
           </div>
         )}

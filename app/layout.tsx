@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Kodo — Accountability Coach',
+  title: 'Yoda — Accountability Coach',
   description: 'Your direct, no-fluff accountability coach.',
 };
 
