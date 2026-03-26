@@ -1,11 +1,10 @@
 // ============================================================
 // DAILY DOOR-KNOCK FEED
 // Fetches posts from Reddit, HN, Dev.to, and X (via Google)
-// Writes to Google Sheet + sends daily email
+// Writes results to Google Sheet
 // ============================================================
 
 // ── STEP 1: EDIT THESE BEFORE RUNNING ────────────────────────
-var YOUR_EMAIL    = 'your@email.com';         // Your email address
 var GOOGLE_API_KEY = 'YOUR_GOOGLE_API_KEY';   // From Google Cloud Console
 var GOOGLE_CX     = 'YOUR_SEARCH_ENGINE_ID';  // From Programmable Search Engine
 var SHEET_NAME    = 'Daily Feed';
@@ -84,7 +83,6 @@ function fetchDailyFeed() {
     sheet.getRange(lastRow + 1, 1, results.length, 7).setValues(results);
   }
 
-  sendEmail(results, today);
   Logger.log('Done. ' + results.length + ' posts fetched.');
 }
 
@@ -240,40 +238,3 @@ function fetchX(today) {
   return results;
 }
 
-// ── EMAIL SUMMARY ─────────────────────────────────────────────
-function sendEmail(results, today) {
-  var subject = 'Daily Door-Knock Feed — ' + today + ' (' + results.length + ' posts)';
-
-  if (results.length === 0) {
-    GmailApp.sendEmail(YOUR_EMAIL, subject, 'No new posts found today.');
-    return;
-  }
-
-  // Group by platform
-  var grouped = {};
-  results.forEach(function(row) {
-    var p = row[1];
-    if (!grouped[p]) grouped[p] = [];
-    grouped[p].push(row);
-  });
-
-  var body = 'DAILY DOOR-KNOCK TARGETS — ' + today + '\n';
-  body    += 'Total posts: ' + results.length + '\n';
-  body    += '='.repeat(50) + '\n\n';
-
-  Object.keys(grouped).forEach(function(platform) {
-    var posts = grouped[platform];
-    body += platform.toUpperCase() + ' — ' + posts.length + ' posts\n';
-    body += '-'.repeat(40) + '\n';
-
-    posts.forEach(function(row) {
-      body += '• ' + row[3] + '\n';          // title
-      body += '  ' + row[4] + '\n';          // url
-      body += '  Source: ' + row[2] + '\n\n';
-    });
-  });
-
-  body += '\nFull list in your Google Sheet.';
-
-  GmailApp.sendEmail(YOUR_EMAIL, subject, body);
-}
