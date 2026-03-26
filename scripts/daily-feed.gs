@@ -9,19 +9,9 @@ var SHEET_NAME = 'Daily Feed';
 // ─────────────────────────────────────────────────────────────
 
 var KEYWORDS = [
-  // ── Vibe coding tools ──
+  // ── Vibe coding ──
   'vibe coding',
   'vibe code',
-  'cursor help',
-  'cursor AI',
-  'lovable help',
-  'lovable.dev',
-  'bolt.new',
-  'replit help',
-  'v0 help',
-  'windsurf',
-  'github copilot',
-  'claude code',
   'AI coding',
   'AI builder',
   'AI app builder',
@@ -208,7 +198,7 @@ function fetchDevTo(today) {
 
   DEVTO_TAGS.forEach(function(tag) {
     try {
-      var url      = 'https://dev.to/api/articles?tag=' + tag + '&per_page=10&top=1';
+      var url      = 'https://dev.to/api/articles?tag=' + tag + '&per_page=5&top=1';
       var response = UrlFetchApp.fetch(url, { muteHttpExceptions: true });
       if (response.getResponseCode() !== 200) return;
 
